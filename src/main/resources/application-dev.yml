@@ -1,0 +1,23 @@
+server:
+  port: 20020
+spring:
+  application:
+    name: issueMoaMail
+  config:
+    import:
+      - optional:configserver:http://issuemoa-config:8888
+  kafka:
+    bootstrap-servers: 192.168.0.127:9092
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, info, metrics, prometheus
+eureka:
+  instance:
+    preferIpAddress: true # 서비스 이름 대신 서비스 IP 주소 등록
+  client:
+    registerWithEureka: true # 유레카 서비스 등록 여부 (default: true)
+    fetchRegistry: true # 레지스트리 사본을 로컬에 내려받기 (default: true)
+    serviceUrl:
+      defaultZone: http://61.102.114.235:8761/eureka # 유레카 서비스의 위치 설정

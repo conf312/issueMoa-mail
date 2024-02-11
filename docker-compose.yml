@@ -1,0 +1,62 @@
+version: '3.8' # Docker Compose 버전 지정
+
+services:
+  issuemoa-config: # 웹 애플리케이션 서비스 정의
+    image: issuemoa/config:latest # 사용할 Docker 이미지 지정
+    ports:
+      - "8888:8888" # 호스트 포트와 컨테이너 포트 매핑
+#    environment:
+#      - "SPRING_PROFILES_ACTIVE=docker"
+    networks:
+      issuemoa: # 서비스가 속한 네트워크 이름을 지정
+        aliases:
+          - "issuemoa-config" # 네트워크상의 서비스에 대한 대체 호스트 이름을 지정
+  issuemoa-eureka:
+    image: issuemoa/eureka:latest
+    ports:
+      - "8761:8761"
+    networks:
+      issuemoa:
+        aliases:
+          - "issuemoa-eureka"
+  issuemoa-gateway:
+    image: issuemoa/gateway:latest
+    ports:
+      - "8000:8000"
+    networks:
+      issuemoa:
+        aliases:
+          - "issuemoa-gateway"
+  issuemoa-mail:
+    image: issuemoa/mail:latest
+    ports:
+      - "17060:17060"
+    networks:
+      issuemoa:
+        aliases:
+          - "issuemoa-mail"
+    depends_on:
+      - issuemoa-config
+  issuemoa-users:
+    image: issuemoa/users:latest
+    ports:
+      - "17070:17070"
+    networks:
+      issuemoa:
+        aliases:
+          - "issuemoa-users"
+    depends_on:
+      - issuemoa-config
+  issuemoa-voca:
+    image: issuemoa/voca:latest
+    ports:
+      - "17080:17080"
+    networks:
+      issuemoa:
+        aliases:
+          - "issuemoa-voca"
+    depends_on:
+      - issuemoa-config
+networks:
+  issuemoa: # 사용할 네트워크 정의
+    driver: bridge
