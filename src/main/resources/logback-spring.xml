@@ -27,7 +27,7 @@
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" />
 
     <!-- 프로파일 개발 환경 -->
-    <springProfile name="docker">
+    <springProfile name="dev">
         <root level="${LOG_LEVEL}">
             <appender-ref ref="CONSOLE"/>
         </root>
