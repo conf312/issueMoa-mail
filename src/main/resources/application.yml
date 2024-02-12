@@ -8,6 +8,8 @@ spring:
   config:
     import:
       - optional:configserver:http://issuemoa-config:8888
+  kafka:
+    bootstrap-servers: 192.168.0.31:9092
 management:
   endpoints:
     web:
