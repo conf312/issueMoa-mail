@@ -38,7 +38,7 @@ pipeline {
                         sh "docker rm issuemoa-mail"
                     }
                     
-                    sh "docker run -d --name issuemoa-mail -p 17060:17060 -v /home/venh/logs:/var/log --network issuemoa -e TZ=Asia/Seoul issuemoa/mail"
+                    sh "docker run -d --name issuemoa-mail -p 20020:20020 -v /home/venh/logs:/var/log --network issuemoa -e TZ=Asia/Seoul issuemoa/mail"
                 }
             }
         }
